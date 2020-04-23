@@ -1,0 +1,617 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"run",
+				"run_method"
+			],
+			[
+				"op",
+				"operation_json\tmodule"
+			],
+			[
+				"file",
+				"file_path\tparam"
+			],
+			[
+				"requ",
+				"request_url\tstatement"
+			],
+			[
+				"pass",
+				"pass_count"
+			],
+			[
+				"send",
+				"sendemail"
+			],
+			[
+				"user",
+				"user_list\tstatement"
+			],
+			[
+				"fail",
+				"fail_result\tstatement"
+			],
+			[
+				"co",
+				"count_num\tstatement"
+			],
+			[
+				"pass_",
+				"pass_num\tstatement"
+			],
+			[
+				"fai",
+				"fail_num\tstatement"
+			],
+			[
+				"con",
+				"content"
+			],
+			[
+				"depend",
+				"depend_response_data\tstatement"
+			],
+			[
+				"get_dep",
+				"get_depend_key\tfunction"
+			],
+			[
+				"de",
+				"DependdentData\tclass"
+			],
+			[
+				"depen",
+				"DependdentData\tclass"
+			],
+			[
+				"dep",
+				"is_depend"
+			],
+			[
+				"is",
+				"is_depend\tfunction"
+			],
+			[
+				"json",
+				"json_exe\tstatement"
+			],
+			[
+				"get_data",
+				"get_data_depend\tfunction"
+			],
+			[
+				"get",
+				"get_request_method\tfunction"
+			],
+			[
+				"col",
+				"col"
+			],
+			[
+				"sh",
+				"sheets"
+			],
+			[
+				"me",
+				"method\tstatement"
+			],
+			[
+				"he",
+				"is_header\tfunction"
+			],
+			[
+				"get_re",
+				"get_request_data\tfunction"
+			],
+			[
+				"Run",
+				"RunMethod"
+			],
+			[
+				"po",
+				"post_main\tfunction"
+			],
+			[
+				"data",
+				"data_config\tmodule"
+			],
+			[
+				"ope",
+				"operation_json\tstatement"
+			],
+			[
+				"Ope",
+				"operation_json\tmodule"
+			],
+			[
+				"Op",
+				"OperationJson"
+			],
+			[
+				"get_run",
+				"get_runyn"
+			],
+			[
+				"glo",
+				"global_var\tclass"
+			],
+			[
+				"fi",
+				"file_name\tparam"
+			],
+			[
+				"sheet",
+				"sheet_id"
+			],
+			[
+				"she",
+				"sheet_id\tparam"
+			],
+			[
+				"open",
+				"OperationExcel\tclass"
+			],
+			[
+				"shee",
+				"sheet_id"
+			],
+			[
+				"mo",
+				"mock_test\tfunction"
+			],
+			[
+				"mock",
+				"mock_method\tstatement"
+			],
+			[
+				"as",
+				"assertEqual\tfunction"
+			],
+			[
+				"html",
+				"HTMLTestRunner\tclass"
+			],
+			[
+				"ht",
+				"HTMLTestRunner"
+			],
+			[
+				"moc",
+				"mock_data\tstatement"
+			],
+			[
+				"Mock",
+				"Mock"
+			],
+			[
+				"test",
+				"test_02"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "util/opera_header.py",
+			"settings":
+			{
+				"buffer_size": 414,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "#coding=utf-8\nimport json\nclass OperationJson:\n\tdef __init__(self,file_path=None):\n\t\tif file_path==None:\n\t\t\tself.file_path='../dataconfig/login.json'\n\t\telse:\n\t\t\tself.file_path=file_path\n\t\tself.data=self.read_data()\n\n\t#读取json文件\n\tdef read_data(self):\n\t\twith open(file_path) as fp:\n\t\t\tdata=json.load(fp)\n\t\t\treturn data\n\t#根据关键字获取数据\n\tdef get_data(self,id):\n\t\treturn self.data[id]\n\t#获取cookie\n\tdef get_cookie(self)\n\nif __name__=='__main__':\n\topjson=OperationJson()\n\tprint opjson.get_data('loginout')",
+			"file": "util/operation_json.py",
+			"file_size": 521,
+			"file_write_time": 132320389046282202,
+			"settings":
+			{
+				"buffer_size": 492,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "#coding:utf-8\nimport sys\nsys.path.append(\"/Users/yma/test/Myautotest\")\nfrom base.run_method import RunMethod\nfrom data.get_data import GetData\nfrom util.common_util import CommonUtil\nfrom data.depend import DependdentData\nfrom util.send_mail import SendEmail\nfrom util.operation_json import OperationJson\n\nclass RunTest:\n\tdef __init__(self):\n\t\tself.RunMethod=RunMethod()\n\t\tself.data=GetData()\n\t\tself.common_util=CommonUtil()\n\t\tself.sendemail=SendEmail()\n\n\t#程序执行主入口\n\tdef go_on_run(self):\n\t\tres=None\n\t\tpass_count=[]\n\t\tfail_count=[]\n\t\trows_count=self.data.get_caselines()\n\t\tfor i in range(1,rows_count):\n\t\t\tisrun=self.data.get_runyn(i)\n\n\t\t\tif isrun:\n\t\t\t\turl=self.data.get_url(i)\n\t\t\t\tmethod=self.data.get_request_method(i)\n\t\t\t\tdata=self.data.get_request_data(i)\n\t\t\t\texpect=self.data.get_expect_data(i)\n\t\t\t\theader=self.data.is_header(i)\n\t\t\t\tdepend_case=self.data.is_depend(i)\n\t\t\t\tres=self.RunMethod.run_main(method,url,data,header)\t\n\t\t\t\tif is_depend!=None:\n\t\t\t\t\tself.depend_data=DependdentData()\n\t\t\t\t\tdepend_response_data=self.GetData.get_depend_key(i)\n\t\t\t\t\t#获取依赖的key\n\t\t\t\t\tdepend_key=self.data.get_depend_field(i)\n\t\t\t\t\trequest_data[depend_key]=depend_response_data\n\n\t\t\t\tif self.common_util.is_contain(expect,res):\n\t\t\t\t\tself.data.write_result(i,'pass')\n\t\t\t\t\tpass_count.append(i)\n\t\t\t\telse:\n\t\t\t\t\tprint \"测试失败\"\n\t\t\t\t\tself.data.write_result(i,res)\n\t\t\t\t\tfail_count.append(i)\n\t\t\t\tif header!='write':\n\t\t\t\t\top_json=OperationJson('OperationJson')\n\t\t\t\t\tcookie=op_header.get_data('apsid')\n\t\t\t\t\tcookies={\n\t\t\t\t\t'apsid':cookie \n\t\t\t\t\t}\n\t\t\t\t\tres=self.run_method.run_main(method,url,request_data,header)\n\t\t\tprint len(pass_count)\n\t\t\tprint len(fail_count)\n\n\tself.sendemail.sendemail(pass_count,fail_count)\n\nif __name__=='__main__':\n\trun=RunTest()\n\tprint run.go_on_run()\n\n",
+			"file": "main/run_test.py",
+			"file_size": 1513,
+			"file_write_time": 132320345557858679,
+			"settings":
+			{
+				"buffer_size": 1744,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "util/operation_excel.py",
+			"settings":
+			{
+				"buffer_size": 1697,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: package",
+				"Package Control: Add Repository"
+			],
+			[
+				"Package Control: a",
+				"Package Control: Add Repository"
+			],
+			[
+				"Package Control: su",
+				"Package Control: List Unmanaged Packages"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Convert Case: Title Case"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"sub",
+				"Sublime Merge: Blame File"
+			],
+			[
+				"snippet",
+				"Snippet: Function"
+			],
+			[
+				"pytho",
+				"Build With: Python - Syntax Check"
+			],
+			[
+				"Package Control: insta",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 77.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/yma/test/Myautotest",
+		"/Users/yma/test/Myautotest/base",
+		"/Users/yma/test/Myautotest/case",
+		"/Users/yma/test/Myautotest/data",
+		"/Users/yma/test/Myautotest/dataconfig",
+		"/Users/yma/test/Myautotest/main",
+		"/Users/yma/test/Myautotest/util"
+	],
+	"file_history":
+	[
+		"/Users/yma/test/Myautotest/main/common_util.py",
+		"/Users/yma/test/Myautotest/util/opera_header.py",
+		"/Users/yma/test/Myautotest/data/data_config.py",
+		"/Users/yma/test/Myautotest/data/get_data.py",
+		"/Users/yma/test/Myautotest/main/run_test.py",
+		"/Users/yma/test/Myautotest/util/operation_excel.py",
+		"/Users/yma/test/Myautotest/util/common_util.py",
+		"/Users/yma/test/Myautotest/util/send_mail.py",
+		"/Users/yma/test/Myautotest/data/depend.py",
+		"/Users/yma/test/Myautotest/dataconfig/case1.xls",
+		"/Users/yma/test/Myautotest/base/test.py",
+		"/Users/yma/test/Myautotest/base/run_method.py",
+		"/Users/yma/test/Myautotest/util/operation_json.py",
+		"/Users/yma/test/Myautotest/base/mock.py",
+		"/Users/yma/test/Myautotest/dataconfig/__init__.py",
+		"/Users/yma/test/Myautotest/util/__init__.py",
+		"/Users/yma/test/Myautotest/data/__init__.py",
+		"/Users/yma/test/Myautotest/__init__.py",
+		"/Users/yma/test/Myautotest/base/__init__.py",
+		"/Users/yma/test/Myautotest/base/test1.py",
+		"/Users/yma/test/Myautotest/test.sublime-project",
+		"/Users/yma/Library/Application Support/Sublime Text 3/Packages/User/Anaconda.sublime-settings",
+		"/Users/yma/test/Myautotest/util/operation.json.py",
+		"/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/json/__init__.py",
+		"/Users/yma/test/Myautotest/dataconfig/login.json",
+		"/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/json/decoder.py",
+		"/Users/yma/test/Myautotest/base/HtmlTestrunner",
+		"/Users/yma/test/Myautotest/report/htmlreport.html",
+		"/Users/yma/Library/Application Support/Sublime Text 3/Packages/User/SublimeCodeIntel.sublime-settings",
+		"/Users/yma/Library/Application Support/Sublime Text 3/Packages/SublimeCodeIntel/SublimeCodeIntel.sublime-settings",
+		"/Users/yma/Library/Application Support/Sublime Text 3/Packages/SublimeCodeIntel-3.0.0-rc.1/SublimeCodeIntel.sublime-settings",
+		"/Users/yma/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings",
+		"/Users/yma/test/Myautotest/base/demo.py",
+		"/Users/yma/test/Myautotest/test.py",
+		"/Users/yma/test/Myautotest/base/HtmlTestrunner.py",
+		"/Users/yma/test/Myautotest/test",
+		"/Users/yma/test/Myautotest/demo.py",
+		"/demo"
+	],
+	"find":
+	{
+		"height": 39.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "util/opera_header.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 414,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "util/operation_json.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 492,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								407,
+								407
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 234.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "main/run_test.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1744,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1505,
+								1505
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 723.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "util/operation_excel.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1697,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1436.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 31.0
+	},
+	"input":
+	{
+		"height": 43.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 35.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/Python/Python.sublime-build",
+	"project": "test.sublime-project",
+	"replace":
+	{
+		"height": 58.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 177.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
